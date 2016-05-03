@@ -1,0 +1,33 @@
+From bac24102cccde2157759283c7e3c014b5d2a1054 Mon Sep 17 00:00:00 2001
+From: Andreas Baierl <ichgeh@imkreisrum.de>
+Date: Tue, 8 Mar 2016 10:05:05 -0500
+Subject: [PATCH] Re-add fb_wait_for_vsync()
+
+---
+ drivers/gpu/mali/mali/__malidrv_build_info.c | 1 +
+ drivers/video/sunxi/disp2/disp/dev_fb.c      | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 100644 drivers/gpu/mali/mali/__malidrv_build_info.c
+
+diff --git a/drivers/gpu/mali/mali/__malidrv_build_info.c b/drivers/gpu/mali/mali/__malidrv_build_info.c
+new file mode 100644
+index 0000000..5812d2d
+--- /dev/null
++++ b/drivers/gpu/mali/mali/__malidrv_build_info.c
+@@ -0,0 +1 @@
++const char *__malidrv_build_info(void) { return "malidrv:  CONFIG=ca7-virtex820-m400-2 USING_OS_MEMORY=0 API_VERSION=14 REPO_URL= REVISION= CHANGED_REVISION= CHANGE_DATE= BUILD_DATE=Do 20. Aug 07:20:00 EDT 2015 BUILD=RELEASE CPU= USING_UMP=1 USING_MALI200=0 USING_MALI400=4 USING_MALI400_L2_CACHE=1 USING_GP2=0 KDIR= MALI_PLATFORM_FILE=platform/mali400-pmu/mali_platform.c OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB=6 USING_PROFILING=0 USING_INTERNAL_PROFILING=0 USING_GPU_UTILIZATION=";}
+diff --git a/drivers/video/sunxi/disp2/disp/dev_fb.c b/drivers/video/sunxi/disp2/disp/dev_fb.c
+index aded08f..6c6ac9f 100755
+--- a/drivers/video/sunxi/disp2/disp/dev_fb.c
++++ b/drivers/video/sunxi/disp2/disp/dev_fb.c
+@@ -885,6 +885,7 @@ static int sunxi_fb_ioctl(struct fb_info *info, unsigned int cmd,unsigned long a
+ 
+ 	case FBIO_WAITFORVSYNC:
+ 	{
++		fb_wait_for_vsync(info);
+ 		wait_for_vsync_flag = 1;
+ 		break;
+ 	}
+-- 
+2.7.0
+
